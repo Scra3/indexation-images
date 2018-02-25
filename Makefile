@@ -35,6 +35,5 @@ build_map:
 picture_classification: build_app
 	echo $(url) > src/test/url.txt
 	bash src/buildVectorsHistos.sh src/test/url.txt src/test/val_colors.svm
-	rm -r src/test/outs
-	mkdir src/test/outs
 	bash src/buildPredictions.sh src/test/val_colors.svm src/test/outs
+	bash src/test/sortClassification.sh
