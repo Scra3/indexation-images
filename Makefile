@@ -40,6 +40,12 @@ converter_out_to_top_format:
 # Evaluation avec trec_eval
 build_map:
 	bash src/buildMeanAveragePrecision.sh
+	
+build_one_model:
+	bash src/script_one/buildOneModel.sh $(label) $(opt)
+	bash src/script_one/buildOnePrediction.sh $(label)
+	bash src/script_one/convertOneOutToTop.sh $(label)
+	bash src/script_one/buildOneMap.sh $(label)
 
 # TODO Evaluation de tous
 # - all.rel, color_all.top -> MAP (performance color globale)
