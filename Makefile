@@ -44,10 +44,7 @@ build_map:
 # Evaluation de tous
 # - all.rel, color_all.top -> MAP (performance color globale)
 build_all_map:
-	rm src/classification/val/colors_all.top
-	touch src/classification/val/colors_all.top
-	cat src/classification/val/outputs/tops/*.top >> src/classification/val/colors_all.top
-	lib/trec_eval.9.0/trec_eval src/classification/val/all.rel src/classification/val/colors_all.top > src/classification/val/all.out
+	bash src/buildAllMap.sh src/classification/val/all.rel src/classification/val/colors_all.top
 
 # Script qui prend en entrée l'URL d'une image quelconque et qui
 # fournit les scores de classification (probabilités)
