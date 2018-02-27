@@ -10,4 +10,4 @@ rm $apFile
 touch $apFile
 lib/trec_eval.9.0/trec_eval $relFile $topFile > $apFile
 
-echo $apFile is build
+#echo $apFile is build

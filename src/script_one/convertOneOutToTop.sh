@@ -32,4 +32,4 @@ nbCharsImageId=11
 nbOfChars=$((7 + $nbCharslabel-1 + $nbCharsImageId))
 
 sort -r -k1."$nbOfChars" "$topFile" -o "$topFile"
-echo colors_$label.out is formated and sorted to top format.
+#echo colors_$label.out is formated and sorted to top format.
