@@ -4,7 +4,7 @@ build_app:
 
 # Run le générateur d'histogrammes avec en params un fichier d'urls
 run_app:
-	bin/tri_histo $(urls_file)
+	bin/tri_histo $(url)
 
 clean:
 	rm -f bin/tri_histo
@@ -40,7 +40,7 @@ converter_out_to_top_format:
 # Evaluation avec trec_eval
 build_map:
 	bash src/buildMeanAveragePrecision.sh
-	
+
 build_one_model:
 	bash src/script_one/buildOneModel.sh $(label) $(opt)
 	bash src/script_one/buildOnePrediction.sh $(label)
@@ -56,4 +56,7 @@ build_all_map:
 # fournit les scores de classification (probabilités)
 # pour chacun des 20 concepts.
 picture_classification:
-	bash src/buildPictureClassification.sh
+	bash src/buildPictureClassification.sh $(url)
+
+test:
+	bats src/test/*
