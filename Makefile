@@ -49,8 +49,5 @@ build_all_map:
 # Script qui prend en entrée l'URL d'une image quelconque et qui
 # fournit les scores de classification (probabilités)
 # pour chacun des 20 concepts.
-picture_classification: build_app
-	echo $(url) > src/test/url.txt
-	bash src/buildVectorsHistos.sh src/test/url.txt src/test/val_colors.svm
-	bash src/buildPredictions.sh src/test/val_colors.svm src/test/outs
-	bash src/test/sortClassification.sh
+picture_classification:
+	bash src/buildPictureClassification.sh
