@@ -1,11 +1,11 @@
 #!/bin/bash
 
-outputs_train_path=src/classification/train/outputs
+outputsTrainPath=src/classification/train/outputs
 
-rm -r $outputs_train_path/models
-mkdir $outputs_train_path/models
+rm -r $outputsTrainPath/models
+mkdir $outputsTrainPath/models
 
-for filePath in $train_path/outputs/svms/*.svm; do
+for svmFile in $outputsTrainPath/svms/*.svm; do
   weight=0
   nbPositive=0
   nbNegative=0
@@ -19,7 +19,7 @@ for filePath in $train_path/outputs/svms/*.svm; do
     else
       nbPositive=$(($nbPositive+1))
     fi
-  done < $filePath
+  done < $svmFile
 
   if [ $nbPositive = "0" ]
   then
@@ -33,9 +33,11 @@ for filePath in $train_path/outputs/svms/*.svm; do
 
   echo "Weight is: "$weight
 
-  fullfFileName=$(basename "$filePath")
+  fullfFileName=$(basename "$svmFile")
   fileName="${fullfFileName%.*}"
 
-  modelPath=$outputs_train_path/outputs/models/$fileName.model
-  lib/libsvm/svm-train -w+1 $weight -b 1 -g 1 $filePath $modelPath
+  modelFile=$outputsTrainPath/models/$fileName.model
+  lib/libsvm/svm-train -w+1 $weight -b 1 -g 1 $svmFile $modelFile
+
+  echo $modelFile is generated.
 done

@@ -28,7 +28,7 @@ void displaySvnArray(Array *a) {
   printf("%d", a->label);
   for (size_t i = 0; i < a->used; i++) {
     SvmFormat *svn = &(a->array[i]);
-    printf(" %d: %f", svn->number, svn->value);
+    printf(" %d:%f", svn->number, svn->value);
   }
   printf("\n");
 }

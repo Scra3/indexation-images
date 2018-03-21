@@ -4,7 +4,7 @@ build_app:
 
 # Run le générateur d'histogrammes avec en params un fichier d'urls
 run_app:
-	bin/tri_histo $(urls_file)
+	bin/tri_histo $(url)
 
 clean:
 	rm -f bin/tri_histo
@@ -23,7 +23,7 @@ add_ann_to_train_colors:
 build_train_models:
 	bash src/buildModels.sh
 
-build_all_val: build_val_colors build_val_prediction converter_out_to_top_format build_map
+build_all_val: build_val_colors build_val_prediction converter_out_to_top_format build_map build_all_map
 
 # Programme pour générer un fichier de vecteurs .svm "neutre" pour val
 build_val_colors:
@@ -40,22 +40,23 @@ converter_out_to_top_format:
 # Evaluation avec trec_eval
 build_map:
 	bash src/buildMeanAveragePrecision.sh
-	
+
 build_one_model:
 	bash src/script_one/buildOneModel.sh $(label) $(opt)
 	bash src/script_one/buildOnePrediction.sh $(label)
 	bash src/script_one/convertOneOutToTop.sh $(label)
 	bash src/script_one/buildOneMap.sh $(label)
 
-# TODO Evaluation de tous
+# Evaluation de tous
 # - all.rel, color_all.top -> MAP (performance color globale)
+build_all_map:
+	bash src/buildAllMap.sh src/classification/val/all.rel src/classification/val/colors_all.top
 
-# Scrpt qui prend en entrée l'URL d'une image quelconque et qui
+# Script qui prend en entrée l'URL d'une image quelconque et qui
 # fournit les scores de classification (probabilités)
 # pour chacun des 20 concepts.
+picture_classification:
+	bash src/buildPictureClassification.sh $(url)
 
-picture_classification: build_app
-	echo $(url) > src/test/url.txt
-	bash src/buildVectorsHistos.sh src/test/url.txt src/test/val_colors.svm
-	bash src/buildPredictions.sh src/test/val_colors.svm src/test/outs
-	bash src/test/sortClassification.sh
+test:
+	bats src/test/*
